@@ -8,14 +8,14 @@
    </config>
    <query id="mongo_find" useConfig="mongo_ds">
       <expression>things.find()</expression>
-      <result element="Rows" rowName="Row">
-         <element column="document" name="DOC" xsdType="string"/>
+      <result element="Documents" rowName="Document">
+         <element column="document" name="Data" xsdType="string"/>
       </result>
    </query>
    <query id="mongo_count" useConfig="mongo_ds">
       <expression>things.count()</expression>
-      <result element="Rows" rowName="Row">
-         <element column="document" name="DOC" xsdType="string"/>
+      <result element="Documents" rowName="Document">
+         <element column="document" name="Data" xsdType="string"/>
       </result>
    </query>
    <query id="mongo_insert" useConfig="mongo_ds">
