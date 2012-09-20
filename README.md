@@ -16,6 +16,4 @@ Custom Query Based Data Source
 
 Custom query based data sources are used when simply the data source cannot be represented using a set of data tables and when it is not suitable for SQL to be used as the query language. So using this type of a data source, you can create your own query format and retrieve data from any type of a data set. Also, if there is a data source type that has their own query format, this can be used to directly map to that. The interface "org.wso2.carbon.dataservices.core.custom.datasource.CustomQueryBasedDS" is required to implement this type of data sources.
 
-
-
-
+For more information, check WSO2 Data Services Server documentation on custom data sources.
