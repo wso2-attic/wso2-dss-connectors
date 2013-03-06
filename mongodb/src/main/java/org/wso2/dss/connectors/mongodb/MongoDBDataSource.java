@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
+import org.jongo.ResultMapper;
 import org.jongo.Update;
 import org.wso2.carbon.dataservices.core.DBUtils;
 import org.wso2.carbon.dataservices.core.DataServiceFault;
@@ -20,6 +21,7 @@ import org.wso2.carbon.dataservices.core.engine.InternalParam;
 import org.wso2.dss.connectors.mongodb.MongoDBDSConstants.MongoOperation;
 import org.wso2.dss.connectors.mongodb.MongoDBDSConstants.MongoOperationLabels;
 
+import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
@@ -190,10 +192,28 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 		}
 	}
 	
+	public final static class MongoResultMapper implements ResultMapper<String> {
+
+		private static final MongoResultMapper instance = new MongoResultMapper();
+		
+		private MongoResultMapper() {
+		}
+		
+		public static MongoResultMapper getInstance() {
+			return instance;
+		}
+		
+		@Override
+		public String map(DBObject dbo) {
+			return dbo.toString();
+		}
+		
+	}
+	
 	public class MongoQueryResult implements QueryResult {
 		
 		private Iterator<? extends Object> dataIterator;
-
+		
 		public MongoQueryResult(String query, List<InternalParam> params) throws DataServiceFault {
 			Object[] request = decodeQuery(query);
 			MongoCollection collection = getJongo().getCollection((String) request[0]);
@@ -254,32 +274,32 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 			return countResult.iterator();
 		}
 		
-		private Iterator<Object> doFind(MongoCollection collection,
+		private Iterator<String> doFind(MongoCollection collection,
 				String opQuery, Object[] parameters) {
 			if (opQuery != null) {
 				if (parameters.length > 0) {
-					return collection.find(opQuery, parameters).as(Object.class).iterator();
+					return collection.find(opQuery, parameters).map(MongoResultMapper.getInstance()).iterator();
 				} else {
-					return collection.find(opQuery).as(Object.class).iterator();
+					return collection.find(opQuery).map(MongoResultMapper.getInstance()).iterator();
 				}
 			} else {
-				return collection.find().as(Object.class).iterator();
+				return collection.find().map(MongoResultMapper.getInstance()).iterator();
 			}
 		}
 		
-		private Iterator<Object> doFindOne(MongoCollection collection,
+		private Iterator<String> doFindOne(MongoCollection collection,
 				String opQuery, Object[] parameters) {
-			Object value;
+			String value;
 			if (opQuery != null) {
 				if (parameters.length > 0) {
-					value = collection.findOne(opQuery, parameters).as(Object.class);
+					value = collection.findOne(opQuery, parameters).map(MongoResultMapper.getInstance());
 				} else {
-					value = collection.findOne(opQuery).as(Object.class);
+					value = collection.findOne(opQuery).map(MongoResultMapper.getInstance());
 				}
 			} else {
-				value = collection.findOne().as(Object.class);
+				value = collection.findOne().map(MongoResultMapper.getInstance());
 			}
-			List<Object> result = new ArrayList<Object>();
+			List<String> result = new ArrayList<String>();
 			result.add(value);
 			return result.iterator();
 		}
