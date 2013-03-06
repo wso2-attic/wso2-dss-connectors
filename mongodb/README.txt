@@ -14,8 +14,8 @@
 * Required dependencies (to be copied to "/repository/components/lib"):-
 
   - mongo-java-driver (http://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/2.9.1/mongo-java-driver-2.9.1.jar)
-  - jongo (http://repo1.maven.org/maven2/org/jongo/jongo/0.2/jongo-0.2.jar)
+  - jongo (http://repo1.maven.org/maven2/org/jongo/jongo/0.3/jongo-0.3.jar)
   - jackson-core (http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.0.6/jackson-core-2.0.6.jar)
   - jackson-databind (http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.0.6/jackson-databind-2.0.6.jar)
   - jackson-annotations (http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.0.6/jackson-annotations-2.0.6.jar)
-
+  - bson4jackson (http://repo1.maven.org/maven2/de/undercouch/bson4jackson/2.1.1/bson4jackson-2.1.1.jar)

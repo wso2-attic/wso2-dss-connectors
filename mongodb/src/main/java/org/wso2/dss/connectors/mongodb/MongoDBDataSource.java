@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
-import org.jongo.ResultMapper;
+import org.jongo.ResultHandler;
 import org.jongo.Update;
 import org.wso2.carbon.dataservices.core.DBUtils;
 import org.wso2.carbon.dataservices.core.DataServiceFault;
@@ -192,7 +192,7 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 		}
 	}
 	
-	public final static class MongoResultMapper implements ResultMapper<String> {
+	public final static class MongoResultMapper implements ResultHandler<String> {
 
 		private static final MongoResultMapper instance = new MongoResultMapper();
 		
