@@ -278,9 +278,11 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 				String opQuery, Object[] parameters) {
 			if (opQuery != null) {
 				if (parameters.length > 0) {
-					return collection.find(opQuery, parameters).map(MongoResultMapper.getInstance()).iterator();
+					return collection.find(opQuery, parameters).map(
+							MongoResultMapper.getInstance()).iterator();
 				} else {
-					return collection.find(opQuery).map(MongoResultMapper.getInstance()).iterator();
+					return collection.find(opQuery).map(
+							MongoResultMapper.getInstance()).iterator();
 				}
 			} else {
 				return collection.find().map(MongoResultMapper.getInstance()).iterator();
@@ -292,7 +294,8 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 			String value;
 			if (opQuery != null) {
 				if (parameters.length > 0) {
-					value = collection.findOne(opQuery, parameters).map(MongoResultMapper.getInstance());
+					value = collection.findOne(opQuery, parameters).map(
+							MongoResultMapper.getInstance());
 				} else {
 					value = collection.findOne(opQuery).map(MongoResultMapper.getInstance());
 				}
