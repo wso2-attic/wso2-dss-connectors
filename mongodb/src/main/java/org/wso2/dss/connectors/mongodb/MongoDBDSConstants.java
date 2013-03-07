@@ -31,6 +31,18 @@ public class MongoDBDSConstants {
 	
 	public static final String READ_PREFERENCE = "read_preference";
 	
+	public static final String AUTO_CONNECT_RETRY = "autoConnectRetry ";
+	
+	public static final String CONNECT_TIMEOUT = "connectTimeout";
+	
+	public static final String MAX_WAIT_TIME = "maxWaitTime";
+	
+	public static final String SOCKET_TIMEOUT = "socketTimeout";
+	
+	public static final String CONNECTIONS_PER_HOST = "connectionsPerHost";
+	
+	public static final String THREADS_ALLOWED_TO_BLOCK_CONN_MULTIPLIER = "threadsAllowedToBlockForConnectionMultiplier ";
+	
 	public static final String RESULT_COLUMN_NAME = "document";
 	
 	public static class MongoOperationLabels {

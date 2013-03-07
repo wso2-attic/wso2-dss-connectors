@@ -11,6 +11,11 @@
   - 'write_concern': The write concern value as mentioned in "com.mongodb.WriteConcern".
   - 'read_preference": The read preference value as mentioned in "com.mongodb.ReadPreference".
 
+    Following property explanations can be found from here: http://api.mongodb.org/java/2.0/com/mongodb/MongoOptions.html
+
+  - 'autoConnectRetry', 'connectionsPerHost', 'connectTimeout', 'maxWaitTime', 'socketTimeout', 'threadsAllowedToBlockForConnectionMultiplier'
+
+
 * Required dependencies (to be copied to "/repository/components/lib"):-
 
   - mongo-java-driver (http://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/2.9.1/mongo-java-driver-2.9.1.jar)

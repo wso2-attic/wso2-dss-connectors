@@ -23,6 +23,7 @@ import org.wso2.dss.connectors.mongodb.MongoDBDSConstants.MongoOperationLabels;
 
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
+import com.mongodb.MongoOptions;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
@@ -51,7 +52,8 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 					MongoDBDSConstants.DATABASE + "' is required");
 		}
 		try {
-		    this.mongo = new Mongo(this.createServerAddresses(servers));
+		    this.mongo = new Mongo(this.createServerAddresses(servers), 
+		    		this.extractMongoOptions(params));
 		    String writeConcern = params.get(MongoDBDSConstants.WRITE_CONCERN);
 		    if (!DBUtils.isEmptyString(writeConcern)) {
 		    	this.getMongo().setWriteConcern(WriteConcern.valueOf(writeConcern));
@@ -64,6 +66,37 @@ public class MongoDBDataSource implements CustomQueryBasedDS {
 		} catch (Exception e) {
 			throw new DataServiceFault(e);
 		}
+	}
+	
+	private MongoOptions extractMongoOptions(Map<String, String> params) {
+		MongoOptions options = new MongoOptions();
+	    String autoConnectRetry  = params.get(MongoDBDSConstants.AUTO_CONNECT_RETRY);
+	    if (!DBUtils.isEmptyString(autoConnectRetry)) {
+	    	options.setAutoConnectRetry(Boolean.parseBoolean(autoConnectRetry));
+	    }
+	    String connectionsPerHost = params.get(MongoDBDSConstants.CONNECTIONS_PER_HOST);
+	    if (!DBUtils.isEmptyString(connectionsPerHost)) {
+	    	options.setConnectionsPerHost(Integer.parseInt(connectionsPerHost));
+	    }
+	    String maxWaitTime  = params.get(MongoDBDSConstants.MAX_WAIT_TIME);
+	    if (!DBUtils.isEmptyString(maxWaitTime)) {
+	    	options.setMaxWaitTime(Integer.parseInt(maxWaitTime));
+	    }
+	    String connectTimeout = params.get(MongoDBDSConstants.CONNECT_TIMEOUT);
+	    if (!DBUtils.isEmptyString(connectTimeout)) {
+	    	options.setConnectTimeout(Integer.parseInt(connectTimeout));
+	    }
+	    String socketTimeout  = params.get(MongoDBDSConstants.SOCKET_TIMEOUT);
+	    if (!DBUtils.isEmptyString(socketTimeout)) {
+	    	options.setSocketTimeout(Integer.parseInt(socketTimeout));
+	    }
+	    String threadsAllowedToBlockForConnectionMultiplier  = params.get(
+	    		MongoDBDSConstants.THREADS_ALLOWED_TO_BLOCK_CONN_MULTIPLIER);
+	    if (!DBUtils.isEmptyString(threadsAllowedToBlockForConnectionMultiplier)) {
+	    	options.setThreadsAllowedToBlockForConnectionMultiplier(
+	    			Integer.parseInt(threadsAllowedToBlockForConnectionMultiplier));
+	    }
+	    return options;
 	}
 	
 	public Mongo getMongo() {
