@@ -1,3 +1,4 @@
+/**/
 * Custom Query Based Data Source Class: 'org.wso2.dss.connectors.mongodb.MongoDBDataSource'
 
 * Data Source Properties :-
